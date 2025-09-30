@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>For Avni 💕</title>
+  <style>
+    body{
+      margin:0;
+      font-family: "Segoe UI", Roboto, Arial;
+      background: radial-gradient(circle at 10% 10%, #fff, #FFF6FB 60%);
+      display:flex;align-items:center;justify-content:center;
+      min-height:100vh;
+    }
+    .page{display:none;text-align:center;padding:30px;}
+    .page.active{display:block; opacity:1; transition:opacity 0.5s ease;}
+
+    h1{margin:0 0 20px;font-size:32px}
+    .btn{
+      padding:12px 22px;
+      background:linear-gradient(90deg,#ff7ab6,#ff3b7a);
+      color:#fff;border:none;border-radius:30px;
+      font-weight:600;cursor:pointer;margin:8px;
+    }
+
+    /* Teddy */
+    .teddy{
+      width:180px;
+      height:250px;
+      position:relative;
+      margin:20px auto;
+      cursor:grab;
+    }
+    .ear{position:absolute;width:50px;height:50px;background:#d99a6c;border-radius:50%;top:0}
+    .ear.left{left:-10px}
+    .ear.right{right:-10px}
+    .head{width:140px;height:120px;background:#e5af7d;border-radius:50%;position:absolute;top:30px;left:50%;transform:translateX(-50%)}
+    .eye{width:12px;height:14px;background:#2b2b2b;border-radius:50%;position:absolute;top:50px}
+    .eye.left{left:30px}
+    .eye.right{right:30px}
+    .nose{width:20px;height:14px;background:#2b2b2b;border-radius:50%;position:absolute;left:50%;top:70px;transform:translateX(-50%)}
+    .body{position:absolute;top:110px;left:50%;width:160px;height:130px;background:#e7b183;border-radius:30px;transform:translateX(-50%);display:flex;align-items:center;justify-content:center}
+
+    /* Fixed teddy heart */
+    .teddy-heart{
+      width:80px;height:80px;position:relative;
+      transform:rotate(-45deg);
+      background:#ff4d94;
+      border-radius:12px 12px 0 0;
+      box-shadow:0 6px 14px rgba(255,77,146,0.14);
+    }
+    .teddy-heart:before,
+    .teddy-heart:after{
+      content:"";position:absolute;width:80px;height:80px;background:#ff4d94;border-radius:50%;
+    }
+    .teddy-heart:before{top:-40px;left:0}
+    .teddy-heart:after{top:0;left:40px}
+    .heart-text{
+      position:absolute;width:100%;height:100%;
+      display:flex;align-items:center;justify-content:center;
+      transform:rotate(45deg);
+      color:#fff;font-weight:700;font-size:14px;
+      text-shadow:0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .note{
+      font-size:18px;color:#2b2b2b;line-height:1.5;
+      margin:10px auto;max-width:300px;
+    }
+
+    /* Center content on page 3 */
+    #page3 .content{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Page 1 -->
+  <div class="page active" id="page1">
+    <h1>Hey cutiee 💕</h1>
+    <p>Click below to see more love 💌</p>
+    <button class="btn" onclick="showPage(2)">More Love ❤️</button>
+  </div>
+
+  <!-- Page 2 -->
+  <div class="page" id="page2">
+    <h1>Love uhh meri jnn 💖</h1>
+    <button class="btn" onclick="showPage(3)">Open Surprise 🎁</button>
+  </div>
+
+  <!-- Page 3 -->
+  <div class="page" id="page3">
+    <div class="content">
+      <div class="teddy" id="teddy">
+        <div class="ear left"></div>
+        <div class="ear right"></div>
+        <div class="head">
+          <div class="eye left"></div>
+          <div class="eye right"></div>
+          <div class="nose"></div>
+        </div>
+        <div class="body">
+          <div class="teddy-heart">
+            <div class="heart-text">Avni 💝</div>
+          </div>
+        </div>
+      </div>
+      <div class="note">
+        You are my favourite person and I don't afford to lose you 💕<br>
+        Jnn ho aap meri 💖
+      </div>
+      <button class="btn" onclick="showPage(1)">Forever Together ❤️</button>
+    </div>
+  </div>
+
+  <script>
+    function showPage(n){
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      document.getElementById('page'+n).classList.add('active');
+    }
+
+    // Draggable Teddy
+    const teddy = document.getElementById("teddy");
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    // Mouse events
+    teddy.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      offsetX = e.clientX - teddy.getBoundingClientRect().left;
+      offsetY = e.clientY - teddy.getBoundingClientRect().top;
+      teddy.style.cursor = "grabbing";
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if(isDragging){
+        teddy.style.position = "absolute";
+        teddy.style.left = `${e.clientX - offsetX}px`;
+        teddy.style.top = `${e.clientY - offsetY}px`;
+      }
+    });
+
+    document.addEventListener("mouseup", () => {
+      isDragging = false;
+      teddy.style.cursor = "grab";
+    });
+
+    // Touch events (mobile)
+    teddy.addEventListener("touchstart", (e) => {
+      isDragging = true;
+      const touch = e.touches[0];
+      offsetX = touch.clientX - teddy.getBoundingClientRect().left;
+      offsetY = touch.clientY - teddy.getBoundingClientRect().top;
+    });
+
+    document.addEventListener("touchmove", (e) => {
+      if(isDragging){
+        const touch = e.touches[0];
+        teddy.style.position = "absolute";
+        teddy.style.left = `${touch.clientX - offsetX}px`;
+        teddy.style.top = `${touch.clientY - offsetY}px`;
+      }
+    });
+
+    document.addEventListener("touchend", () => {
+      isDragging = false;
+    });
+  </script>
+</body>
+</html>
